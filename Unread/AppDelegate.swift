@@ -6,19 +6,35 @@
 //  Copyright © 2015 Bleep Blop. All rights reserved.
 //
 
+// Icon from: http://www.flaticon.com/free-icon/mail-envelope_62032
+
 import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
+    var statusItem: NSStatusItem!
+    var timer: NSTimer!
+    var darkMode: Bool = false
     
     let query = NSMetadataQuery()
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
-        let timer = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: "queryUnreadMails", userInfo: nil, repeats: true)
-        timer.fire()
+        
+        // Check if OS is in light or dark mode.
+        if let _ = NSUserDefaults.standardUserDefaults().stringForKey("AppleInterfaceStyle") {
+            self.darkMode = true
+        }
+        
+        self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+        self.statusItem.image = self.darkMode ? NSImage(named: "mail-white.png") : NSImage(named: "mail-black.png")
+        self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
+        self.statusItem.action = "itemClicked:"
+            
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(120.0, target: self, selector: "queryUnreadMails", userInfo: nil, repeats: true)
+        self.timer.fire()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
@@ -38,22 +54,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func queryUpdated(object: AnyObject) {
-        print("Total mail count: \(query.results.count)")
-        
-        var i = 0
-        for resultObject in query.results {
-            let metadata = resultObject as! NSMetadataItem
-            
-//            for attribute in metadata.attributes {
-//                print("\(attribute): \(resultObject.valueForAttribute(attribute))")
-//            }
+        print("Total count: \(query.results.count)")
+
+        var hasUnread = false;
+        let array = query.results as NSArray
+        array.enumerateObjectsWithOptions(NSEnumerationOptions.Concurrent, usingBlock: {(obj, idx, stop) -> Void in
+            let metadata = obj as! NSMetadataItem
             
             if let read = metadata.valueForAttribute("com_apple_mail_read")?.boolValue {
-                if !read { i++ }
+                if !read { hasUnread = true }
             }
-        }
+        })
         
-        print("Total unread count: \(i)")
+        if hasUnread {
+            self.statusItem.image = self.darkMode ? NSImage(named: "letter-white.png") : NSImage(named: "letter-black.png")
+            self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
+        } else {
+            self.statusItem.image = self.darkMode ? NSImage(named: "mail-white.png") : NSImage(named: "mail-black.png")
+            self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
+        }
+    }
+    
+    func itemClicked(sender: AnyObject) {
+        NSWorkspace.sharedWorkspace().launchApplication("Mail")
     }
 }
 

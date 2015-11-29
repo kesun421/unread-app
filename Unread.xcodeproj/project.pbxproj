@@ -10,6 +10,10 @@
 		9E3221C91C0A4FEC00F2727B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3221C81C0A4FEC00F2727B /* AppDelegate.swift */; };
 		9E3221CB1C0A4FEC00F2727B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E3221CA1C0A4FEC00F2727B /* Assets.xcassets */; };
 		9E3221CE1C0A4FEC00F2727B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E3221CC1C0A4FEC00F2727B /* MainMenu.xib */; };
+		9EEFF1A61C0ACAED004FB3A1 /* letter-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEFF1A41C0ACAED004FB3A1 /* letter-black.png */; };
+		9EEFF1A71C0ACAED004FB3A1 /* letter-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEFF1A51C0ACAED004FB3A1 /* letter-white.png */; };
+		9EEFF1AA1C0AD2E5004FB3A1 /* mail-black.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEFF1A81C0AD2E5004FB3A1 /* mail-black.png */; };
+		9EEFF1AB1C0AD2E5004FB3A1 /* mail-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEFF1A91C0AD2E5004FB3A1 /* mail-white.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +22,10 @@
 		9E3221CA1C0A4FEC00F2727B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E3221CD1C0A4FEC00F2727B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		9E3221CF1C0A4FEC00F2727B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EEFF1A41C0ACAED004FB3A1 /* letter-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter-black.png"; sourceTree = "<group>"; };
+		9EEFF1A51C0ACAED004FB3A1 /* letter-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter-white.png"; sourceTree = "<group>"; };
+		9EEFF1A81C0AD2E5004FB3A1 /* mail-black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail-black.png"; sourceTree = "<group>"; };
+		9EEFF1A91C0AD2E5004FB3A1 /* mail-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail-white.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,10 @@
 				9E3221CA1C0A4FEC00F2727B /* Assets.xcassets */,
 				9E3221CC1C0A4FEC00F2727B /* MainMenu.xib */,
 				9E3221CF1C0A4FEC00F2727B /* Info.plist */,
+				9EEFF1A41C0ACAED004FB3A1 /* letter-black.png */,
+				9EEFF1A51C0ACAED004FB3A1 /* letter-white.png */,
+				9EEFF1A81C0AD2E5004FB3A1 /* mail-black.png */,
+				9EEFF1A91C0AD2E5004FB3A1 /* mail-white.png */,
 			);
 			path = Unread;
 			sourceTree = "<group>";
@@ -116,7 +128,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EEFF1AA1C0AD2E5004FB3A1 /* mail-black.png in Resources */,
+				9EEFF1A61C0ACAED004FB3A1 /* letter-black.png in Resources */,
+				9EEFF1A71C0ACAED004FB3A1 /* letter-white.png in Resources */,
 				9E3221CB1C0A4FEC00F2727B /* Assets.xcassets in Resources */,
+				9EEFF1AB1C0AD2E5004FB3A1 /* mail-white.png in Resources */,
 				9E3221CE1C0A4FEC00F2727B /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

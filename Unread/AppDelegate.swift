@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     var statusItem: NSStatusItem!
-    var timer: NSTimer!
     var darkMode: Bool = false
     
     let query = NSMetadataQuery()
@@ -32,9 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusItem.image = self.darkMode ? NSImage(named: "mail-white.png") : NSImage(named: "mail-black.png")
         self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
         self.statusItem.action = "itemClicked:"
-            
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(30.0, target: self, selector: "queryUnreadMails", userInfo: nil, repeats: true)
-        self.timer.fire()
+        
+        self.queryUnreadMails()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
@@ -72,6 +70,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             self.statusItem.image = self.darkMode ? NSImage(named: "mail-white.png") : NSImage(named: "mail-black.png")
             self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
+        }
+        
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(30.0 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.queryUnreadMails()
         }
     }
     

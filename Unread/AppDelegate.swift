@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
         self.statusItem.action = "itemClicked:"
             
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "queryUnreadMails", userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(30.0, target: self, selector: "queryUnreadMails", userInfo: nil, repeats: true)
         self.timer.fire()
     }
 

@@ -43,6 +43,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         query.predicate = NSPredicate(fromMetadataQueryString: "kMDItemContentType == 'com.apple.mail.emlx'")
         query.searchScopes = [NSMetadataQueryUserHomeScope]
         
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector: "queryUpdated:",
             name: NSMetadataQueryDidFinishGatheringNotification,
@@ -52,6 +54,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func queryUpdated(object: AnyObject) {
+        query.stopQuery()
+        
         print("Total count: \(query.results.count)")
 
         var hasUnread = false;

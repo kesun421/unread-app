@@ -19,23 +19,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let query = NSMetadataQuery()
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
         // Check if OS is in light or dark mode.
-        if let _ = NSUserDefaults.standardUserDefaults().stringForKey("AppleInterfaceStyle") {
+        if let _ = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") {
             self.darkMode = true
         }
         
-        self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+        self.statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         self.statusItem.image = self.darkMode ? NSImage(named: "mail-white.png") : NSImage(named: "mail-black.png")
         self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
-        self.statusItem.action = "itemClicked:"
+        self.statusItem.action = #selector(AppDelegate.itemClicked(_:))
         
         self.queryUnreadMails()
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
     
@@ -43,27 +43,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         query.predicate = NSPredicate(fromMetadataQueryString: "kMDItemContentType == 'com.apple.mail.emlx'")
         query.searchScopes = [NSMetadataQueryUserHomeScope]
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "queryUpdated:",
-            name: NSMetadataQueryDidFinishGatheringNotification,
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(AppDelegate.queryUpdated(_:)),
+            name: NSNotification.Name.NSMetadataQueryDidFinishGathering,
             object: query)
         
-        query.startQuery()
+        query.start()
     }
     
-    func queryUpdated(object: AnyObject) {
-        query.stopQuery()
+    func queryUpdated(_ object: AnyObject) {
+        query.stop()
         
         print("Total count: \(query.results.count)")
 
         var hasUnread = false;
         let array = query.results as NSArray
-        array.enumerateObjectsWithOptions(NSEnumerationOptions.Concurrent, usingBlock: {(obj, idx, stop) -> Void in
+        array.enumerateObjects(options: NSEnumerationOptions.concurrent, using: {(obj, idx, stop) -> Void in
             let metadata = obj as! NSMetadataItem
             
-            if let read = metadata.valueForAttribute("com_apple_mail_read")?.boolValue {
+            if let read = (metadata.value(forAttribute: "com_apple_mail_read") as AnyObject).boolValue {
                 if !read { hasUnread = true }
             }
         })
@@ -76,14 +76,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.statusItem.image?.size = NSMakeSize(16.0, 16.0)
         }
         
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(30.0 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+        let delayTime = DispatchTime.now() + Double(Int64(30.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: delayTime) {
             self.queryUnreadMails()
         }
     }
     
-    func itemClicked(sender: AnyObject) {
-        NSWorkspace.sharedWorkspace().launchApplication("Mail")
+    func itemClicked(_ sender: AnyObject) {
+        NSWorkspace.shared().launchApplication("Mail")
     }
 }
 

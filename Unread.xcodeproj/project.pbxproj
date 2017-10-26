@@ -102,6 +102,7 @@
 				TargetAttributes = {
 					9E3221C41C0A4FEC00F2727B = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -251,6 +252,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bleepblopapps.Unread;
 				PRODUCT_NAME = Unread;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -263,6 +265,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bleepblopapps.Unread;
 				PRODUCT_NAME = Unread;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
